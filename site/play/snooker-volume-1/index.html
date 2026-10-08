@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Snooker Puzzle Game | Frame &amp; Fortune Puzzles</title>
+<meta name="description" content="Free snooker puzzle game: word searches, trivia, anagrams and Break Builder scoring puzzles from Snooker Puzzles &amp; Trivia Volume 1. Plays in your browser.">
+<link rel="canonical" href="https://framefortunepuzzles.com/play/snooker-volume-1/">
+<meta property="og:title" content="Free Snooker Puzzle Game">
+<meta property="og:description" content="Word searches, trivia, anagrams and scoring puzzles. Free to play in your browser.">
+<meta property="og:image" content="https://framefortunepuzzles.com/assets/img/og-image.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<style>
+:root { --green:#1d5c34; --gold:#b8860b; --light:#eef3ee; --red:#c0392b; }
+* { box-sizing:border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; margin:0; background:var(--light); color:#1a1a1a; }
+header { background:var(--green); color:#fff; padding:14px 16px; text-align:center; }
+header h1 { margin:0; font-size:1.35rem; letter-spacing:0.5px; }
+header .sub { font-size:0.85rem; opacity:0.9; margin-top:4px; }
+nav { display:flex; flex-wrap:wrap; justify-content:center; background:#144426; }
+nav button { flex:1 1 auto; min-width:110px; padding:10px 6px; border:0; background:transparent; color:#cfe3d5; font-size:0.95rem; cursor:pointer; font-family:inherit; }
+nav button.active { background:var(--light); color:var(--green); font-weight:bold; border-radius:8px 8px 0 0; }
+main { max-width:760px; margin:0 auto; padding:14px; }
+.card { background:#fff; border:1px solid #d5ddd5; border-radius:10px; padding:14px; margin-bottom:14px; }
+.card h2 { margin:0 0 4px; color:var(--green); font-size:1.15rem; }
+.meta { font-size:0.85rem; color:#666; margin-bottom:10px; }
+.pager { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.pager button { background:var(--green); color:#fff; border:0; border-radius:6px; padding:8px 14px; cursor:pointer; font-family:inherit; }
+.pager button:disabled { opacity:0.4; cursor:default; }
+table.ws { border-collapse:collapse; margin:0 auto; }
+table.ws td { width:min(6vw,30px); height:min(6vw,30px); text-align:center; vertical-align:middle; border:1px solid #c8d2c8; font-weight:bold; font-size:min(3.4vw,15px); cursor:pointer; user-select:none; font-family: Helvetica, Arial, sans-serif; }
+td.sel { background:#ffe9a8; }
+td.found { background:#bfe3c8; }
+.wordlist { display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:10px; font-family: Helvetica, Arial, sans-serif; font-size:0.9rem; }
+.wordlist span.done { text-decoration:line-through; color:#7ca387; }
+.q { margin:12px 0; padding-bottom:10px; border-bottom:1px solid #e2e8e2; }
+.q .qq { font-weight:bold; }
+.ans { color:var(--green); font-weight:bold; margin-top:6px; }
+.row { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; align-items:center; }
+input[type=text] { flex:1 1 180px; padding:8px; border:1px solid #b8c4b8; border-radius:6px; font-size:1rem; font-family:inherit; }
+button.act { background:var(--green); color:#fff; border:0; border-radius:6px; padding:8px 14px; cursor:pointer; font-family:inherit; }
+button.ghost { background:#fff; color:var(--green); border:1px solid var(--green); border-radius:6px; padding:8px 14px; cursor:pointer; font-family:inherit; }
+.right { color:#1c7a3a; font-weight:bold; }
+.wrong { color:var(--red); font-weight:bold; }
+.scorebar { text-align:center; background:#fff; border:1px solid #d5ddd5; border-radius:10px; padding:10px; margin-bottom:14px; font-size:0.95rem; }
+.banner { background:var(--gold); color:#fff; text-align:center; padding:12px; border-radius:10px; margin-bottom:14px; }
+.banner a { color:#fff; font-weight:bold; }
+footer { text-align:center; font-size:0.8rem; color:#667; padding:18px; }
+.note { font-size:0.85rem; color:#555; margin-top:8px; }
+.sitebar { background:#0a2817; border-bottom:2px solid #c9a44c; display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 14px; font-family:Helvetica,Arial,sans-serif; font-size:0.95rem; flex-wrap:wrap; }
+.sitebar a { color:#e6cc85; text-decoration:none; font-weight:bold; }
+.sitebar a:hover { text-decoration:underline; }
+.sitebar img { width:30px; height:30px; border-radius:50%; vertical-align:middle; margin-right:8px; }
+</style>
+</head>
+<body>
+<div class="sitebar"><a href="/"><img src="/assets/img/logo-96.webp" alt="">Frame &amp; Fortune Puzzles</a><a href="/snooker/volume-1/">Get the full book and game</a></div>
+<header>
+  <h1>Snooker Puzzles &amp; Trivia: Free Sample Game</h1>
+  <div class="sub">by David "The Toothless Tornado" Walker &middot; Frame &amp; Fortune Puzzles</div>
+</header>
+<nav id="tabs"></nav>
+<main>
+  <div class="banner">This is the free sample. The full game has 30 word searches, 150 trivia questions, 80 anagrams and 40 Break Builders. Get it, plus the paperback and write-on editions, on the <a href="/snooker/volume-1/">Snooker Volume 1 page</a></div>
+  <div class="scorebar" id="scorebar"></div>
+  <div id="view"></div>
+</main>
+<footer>Plays in any browser, works offline once opened. Progress saves on this device; clearing browser data clears it.<br>&copy; 2026 Frame &amp; Fortune Puzzles</footer>
+<script>
+const DATA = {"wordsearches": [{"title": "Legends of the Baize", "words": ["DAVIS", "HENDRY", "OSULLIVAN", "HIGGINS", "WHITE", "REARDON", "SPENCER", "TAYLOR", "GRIFFITHS", "PARROTT", "DOHERTY", "EBDON"], "grid": [["V", "E", "B", "D", "O", "N", "O", "D", "R", "A", "E", "R", "J", "S", "I"], ["O", "O", "S", "U", "L", "L", "I", "V", "A", "N", "G", "S", "D", "H", "V"], ["D", "V", "D", "U", "E", "P", "C", "K", "P", "S", "O", "H", "C", "T", "J"], ["R", "L", "X", "A", "N", "W", "O", "P", "L", "N", "X", "W", "W", "I", "U"], ["N", "A", "T", "R", "V", "U", "N", "T", "P", "I", "G", "H", "J", "F", "E"], ["C", "I", "C", "Z", "W", "I", "A", "C", "V", "G", "G", "I", "F", "F", "B"], ["O", "E", "T", "D", "O", "Y", "S", "F", "M", "G", "I", "T", "F", "I", "I"], ["L", "A", "P", "W", "L", "P", "E", "Q", "R", "I", "W", "E", "D", "R", "F"], ["Y", "S", "R", "O", "N", "I", "K", "Y", "T", "H", "V", "T", "Q", "G", "U"], ["E", "P", "R", "U", "C", "D", "P", "T", "Q", "T", "Y", "R", "M", "S", "Y"], ["J", "E", "R", "Y", "R", "D", "N", "E", "H", "R", "O", "S", "W", "I", "K"], ["Y", "N", "Y", "T", "R", "E", "H", "O", "D", "W", "Y", "R", "H", "H", "W"], ["H", "C", "T", "J", "B", "V", "K", "E", "F", "H", "S", "S", "R", "B", "F"], ["H", "E", "J", "P", "A", "V", "D", "I", "C", "I", "R", "V", "F", "A", "G"], ["R", "R", "F", "Y", "N", "W", "I", "P", "N", "G", "U", "G", "M", "U", "P"]]}, {"title": "Types of Shot", "words": ["SAFETY", "SCREW", "STUN", "SWERVE", "MASSE", "PLANT", "DOUBLE", "CANNON", "POT", "SNOOKER", "BREAK", "CLEARANCE"], "grid": [["U", "U", "C", "T", "C", "E", "B", "S", "C", "Z", "S", "X", "D", "Z", "G"], ["Q", "U", "X", "N", "M", "P", "S", "A", "B", "H", "C", "L", "O", "M", "E"], ["V", "B", "A", "A", "S", "C", "Z", "F", "J", "L", "S", "C", "U", "V", "T"], ["J", "F", "J", "L", "X", "A", "T", "E", "S", "C", "H", "C", "B", "G", "B"], ["G", "M", "O", "P", "B", "N", "H", "T", "U", "T", "Q", "L", "L", "E", "E"], ["W", "R", "G", "S", "E", "N", "N", "Y", "K", "Y", "H", "E", "E", "T", "D"], ["O", "O", "V", "R", "Q", "O", "V", "J", "Y", "S", "F", "A", "Y", "M", "O"], ["N", "D", "K", "E", "W", "N", "T", "T", "U", "R", "Z", "R", "V", "O", "G"], ["Z", "R", "Z", "K", "R", "Z", "C", "O", "Q", "S", "J", "A", "R", "E", "O"], ["U", "N", "J", "O", "E", "K", "D", "P", "B", "T", "L", "N", "V", "V", "A"], ["S", "F", "B", "O", "S", "I", "A", "B", "A", "U", "Q", "C", "Q", "R", "M"], ["V", "Y", "M", "N", "S", "K", "I", "E", "I", "N", "M", "E", "O", "E", "V"], ["N", "M", "S", "S", "A", "R", "M", "B", "R", "C", "R", "M", "R", "W", "Q"], ["J", "Q", "F", "Y", "M", "D", "Z", "H", "P", "B", "O", "J", "B", "S", "S"], ["C", "H", "E", "B", "H", "Z", "Y", "V", "W", "E", "R", "C", "S", "U", "V"]]}, {"title": "Nicknames", "words": ["ROCKET", "WHIRLWIND", "HURRICANE", "NUGGET", "JESTER", "CAPTAIN", "GRINDER", "WIZARD", "THUNDER", "MAGICIAN", "GENTLEMAN", "MAVERICK"], "grid": [["J", "G", "E", "Z", "D", "F", "B", "Y", "L", "R", "E", "T", "S", "E", "J"], ["B", "E", "E", "E", "H", "M", "D", "F", "R", "O", "C", "K", "E", "T", "E"], ["V", "N", "Z", "U", "W", "C", "R", "O", "I", "T", "X", "Q", "Y", "X", "H"], ["P", "T", "S", "U", "H", "C", "A", "G", "G", "U", "N", "K", "T", "C", "S"], ["J", "L", "N", "N", "F", "V", "Z", "W", "S", "F", "A", "C", "V", "F", "A"], ["A", "E", "I", "L", "U", "L", "I", "B", "R", "T", "I", "I", "I", "T", "L"], ["N", "M", "A", "W", "V", "G", "W", "F", "R", "O", "C", "R", "E", "E", "T"], ["U", "A", "T", "M", "Z", "Q", "G", "E", "W", "V", "I", "E", "I", "N", "M"], ["I", "N", "P", "Q", "C", "K", "D", "E", "U", "C", "G", "V", "J", "A", "Z"], ["I", "U", "A", "J", "X", "N", "I", "O", "T", "H", "A", "A", "J", "C", "G"], ["Q", "M", "C", "J", "I", "M", "Y", "K", "E", "P", "M", "M", "L", "I", "A"], ["W", "H", "I", "R", "L", "W", "I", "N", "D", "Z", "H", "V", "Z", "R", "R"], ["G", "X", "G", "Y", "C", "A", "F", "X", "I", "R", "H", "R", "B", "R", "S"], ["F", "J", "W", "U", "J", "M", "H", "O", "R", "E", "Y", "Z", "Q", "U", "X"], ["F", "E", "F", "X", "T", "H", "U", "N", "D", "E", "R", "B", "J", "H", "I"]]}], "trivia": [{"title": "The World Championship", "qs": [{"q": "In which year did the World Snooker Championship first take place at the Crucible Theatre?", "a": "1977"}, {"q": "Which city is home to the Crucible Theatre?", "a": "Sheffield"}, {"q": "Who won the first World Championship held at the Crucible?", "a": "John Spencer"}, {"q": "How many frames does the winner need in the modern World Championship final?", "a": "18 (best of 35)"}, {"q": "Which player won six world titles during the 1980s?", "a": "Steve Davis"}, {"q": "Who famously won the 1985 final on the last black?", "a": "Dennis Taylor"}, {"q": "Which player did Dennis Taylor beat in that 1985 final?", "a": "Steve Davis"}, {"q": "Who is the youngest ever World Champion, winning in 1990 aged 21?", "a": "Stephen Hendry"}, {"q": "How many world titles did Stephen Hendry win in the 1990s?", "a": "Seven"}, {"q": "Which Welshman won the world title in 1979 as a qualifier?", "a": "Terry Griffiths"}]}, {"title": "Name the Player from the Nickname", "qs": [{"q": "The Rocket", "a": "Ronnie O'Sullivan"}, {"q": "The Whirlwind", "a": "Jimmy White"}, {"q": "The Hurricane", "a": "Alex Higgins"}, {"q": "The Nugget", "a": "Steve Davis"}, {"q": "The Jester from Leicester", "a": "Mark Selby"}, {"q": "The Wizard of Wishaw", "a": "John Higgins"}, {"q": "The Grinder", "a": "Cliff Thorburn"}, {"q": "The Thunder from Down Under", "a": "Neil Robertson"}, {"q": "The Magician", "a": "Shaun Murphy"}, {"q": "The Ace in the Pack", "a": "Judd Trump"}]}], "anagrams": [{"title": "World Champions", "items": [{"scr": "DIAEV VTESS", "ans": "STEVE DAVIS"}, {"scr": "NSHEDEN PRHYTE", "ans": "STEPHEN HENDRY"}, {"scr": "ONANIN EOIVRUSLL", "ans": "RONNIE OSULLIVAN"}, {"scr": "OIHJ SHNGNGI", "ans": "JOHN HIGGINS"}, {"scr": "WKSA IAMLMLRI", "ans": "MARK WILLIAMS"}, {"scr": "BLYK REASM", "ans": "MARK SELBY"}, {"scr": "URDU PJDTM", "ans": "JUDD TRUMP"}, {"scr": "BLNE NITOROSER", "ans": "NEIL ROBERTSON"}, {"scr": "YHHMS PRAUNU", "ans": "SHAUN MURPHY"}, {"scr": "HTE YRENDKO", "ans": "KEN DOHERTY"}]}], "breaks": [{"q": "A player pots: red, brown, red, pink, red, black. What is the break?", "a": "20"}, {"q": "There are 3 reds left plus all six colours. What is the maximum number of points still available (taking every red with a black)?", "a": "51"}, {"q": "A player is 57 points behind with 59 points left on the table. Do they need snookers?", "a": "No"}, {"q": "A player gives away 3 fouls worth 4, 5, 4 points. How many penalty points is that in total?", "a": "13"}, {"q": "A player pots: red, green, red, blue, red, brown. What is the break?", "a": "15"}], "facts": [{"title": "The Black Ball Final", "body": "The 1985 World Championship final between Dennis Taylor and Steve Davis is the most famous match in snooker history. Taylor trailed 8-0 but fought back, and the match came down to the final black of the final frame after midnight. When Taylor potted it, around 18.5 million UK viewers were still watching, a late-night record that stood for decades."}]};
+const KEY = 'ffp-snooker-v1-sample';
+let S = {};
+try { S = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { S = {}; }
+S.ws = S.ws || {}; S.tq = S.tq || {}; S.an = S.an || {}; S.bb = S.bb || {};
+S.idx = S.idx || { ws:0, tq:0, an:0, bb:0 }; S.tab = S.tab || 'ws';
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+
+const TABS = [['ws','Word Searches'],['tq','Trivia'],['an','Anagrams'],['bb','Break Builders']];
+const tabsEl = document.getElementById('tabs');
+TABS.forEach(([id,label])=>{
+  const b = document.createElement('button');
+  b.textContent = label; b.dataset.id = id;
+  b.onclick = ()=>{ S.tab=id; save(); render(); };
+  tabsEl.appendChild(b);
+});
+
+function score(){
+  let f=0, t=0;
+  DATA.wordsearches.forEach((w,i)=>{ f += (S.ws[i]||[]).length; t += w.words.length; });
+  let tr=0, tt=0;
+  DATA.trivia.forEach((q,i)=>{ const st=S.tq[i]||{}; Object.values(st).forEach(v=>{ if(v==='r') tr++; }); tt += q.qs.length; });
+  let ar=0;
+  DATA.anagrams.forEach((a,i)=>{ const st=S.an[i]||{}; Object.values(st).forEach(v=>{ if(v) ar++; }); });
+  const at = DATA.anagrams.reduce((n,a)=>n+a.items.length,0);
+  let br=0; Object.values(S.bb).forEach(v=>{ if(v) br++; });
+  return `Words found ${f}/${t} &nbsp;&middot;&nbsp; Trivia right ${tr}/${tt} &nbsp;&middot;&nbsp; Anagrams solved ${ar}/${at} &nbsp;&middot;&nbsp; Break Builders ${br}/${DATA.breaks.length}`;
+}
+
+function pager(kind, n, total, title){
+  return `<div class="pager">
+    <button ${n===0?'disabled':''} onclick="go('${kind}',${n-1})">&larr; Prev</button>
+    <div><strong>${title}</strong><div class="meta" style="text-align:center">${n+1} of ${total}</div></div>
+    <button ${n===total-1?'disabled':''} onclick="go('${kind}',${n+1})">Next &rarr;</button>
+  </div>`;
+}
+window.go = (kind,n)=>{ S.idx[kind]=n; save(); render(); };
+
+let sel = null;
+function renderWS(){
+  const n = S.idx.ws, w = DATA.wordsearches[n];
+  const found = S.ws[n] || [];
+  let h = pager('ws', n, DATA.wordsearches.length, w.title);
+  h += '<table class="ws" id="grid">';
+  const foundCells = new Set();
+  (S.wsc && S.wsc[n] || []).forEach(k=>foundCells.add(k));
+  for (let r=0;r<15;r++){ h+='<tr>';
+    for (let c=0;c<15;c++){
+      const k = r+','+c;
+      h += `<td data-r="${r}" data-c="${c}" class="${foundCells.has(k)?'found':''}">${w.grid[r][c]}</td>`;
+    } h+='</tr>'; }
+  h += '</table><div class="wordlist">' + w.words.map(x=>`<span class="${found.includes(x)?'done':''}">${x}</span>`).join('') + '</div>';
+  h += '<div class="note">Tap the first letter of a word, then its last letter.</div>';
+  return h;
+}
+function wsClick(td){
+  const r=+td.dataset.r, c=+td.dataset.c, n=S.idx.ws, w=DATA.wordsearches[n];
+  if(!sel){ sel=[r,c]; td.classList.add('sel'); return; }
+  const [r0,c0]=sel; sel=null;
+  document.querySelectorAll('td.sel').forEach(x=>x.classList.remove('sel'));
+  const dr=Math.sign(r-r0), dc=Math.sign(c-c0);
+  const len=Math.max(Math.abs(r-r0),Math.abs(c-c0))+1;
+  if(!((dr===0||dc===0||Math.abs(r-r0)===Math.abs(c-c0)))) return;
+  let s=''; const cells=[];
+  for(let i=0;i<len;i++){ const rr=r0+dr*i, cc=c0+dc*i; if(rr<0||cc<0||rr>14||cc>14) return; s+=w.grid[rr][cc]; cells.push(rr+','+cc); }
+  const rev = s.split('').reverse().join('');
+  const hit = w.words.find(x=>x===s||x===rev);
+  if(hit){
+    S.ws[n] = S.ws[n]||[]; if(!S.ws[n].includes(hit)) S.ws[n].push(hit);
+    S.wsc = S.wsc||{}; S.wsc[n] = (S.wsc[n]||[]).concat(cells);
+    save(); render();
+  }
+}
+function renderTQ(){
+  const n=S.idx.tq, q=DATA.trivia[n], st=S.tq[n]||{};
+  let h = pager('tq', n, DATA.trivia.length, q.title);
+  q.qs.forEach((item,i)=>{
+    const state = st[i];
+    h += `<div class="q"><div class="qq">${i+1}. ${item.q}</div>`;
+    if(state==='r') h += `<div class="ans">${item.a}</div><div class="right">You got it right.</div>`;
+    else if(state==='w') h += `<div class="ans">${item.a}</div><div class="wrong">Marked wrong. One to remember.</div>`;
+    else if(state==='shown') h += `<div class="ans">${item.a}</div><div class="row"><button class="act" onclick="tq(${i},'r')">I was right</button><button class="ghost" onclick="tq(${i},'w')">I was wrong</button></div>`;
+    else h += `<div class="row"><button class="ghost" onclick="tq(${i},'shown')">Show answer</button></div>`;
+    h += '</div>';
+  });
+  return h;
+}
+window.tq = (i,v)=>{ const n=S.idx.tq; S.tq[n]=S.tq[n]||{}; S.tq[n][i]=v; save(); render(); };
+
+function norm(s){ return (s||'').toUpperCase().replace(/[^A-Z]/g,''); }
+function renderAN(){
+  const n=S.idx.an, a=DATA.anagrams[n], st=S.an[n]||{};
+  let h = pager('an', n, DATA.anagrams.length, a.title);
+  h += '<div class="note">All the letters are mixed together; in a two word answer a letter may belong to either word.</div>';
+  a.items.forEach((item,i)=>{
+    h += `<div class="q"><div class="qq" style="font-family:Helvetica,Arial,sans-serif; letter-spacing:2px;">${i+1}. ${item.scr}</div>`;
+    if(st[i]) h += `<div class="ans">${item.ans}</div><div class="right">Solved.</div>`;
+    else h += `<div class="row"><input type="text" id="an${i}" placeholder="Your answer" autocomplete="off"><button class="act" onclick="anCheck(${i})">Check</button><button class="ghost" onclick="anReveal(${i})">Reveal</button></div><div id="anmsg${i}"></div>`;
+    h += '</div>';
+  });
+  return h;
+}
+window.anCheck = (i)=>{
+  const n=S.idx.an, item=DATA.anagrams[n].items[i];
+  const guess = document.getElementById('an'+i).value;
+  if(norm(guess)===norm(item.ans)){ S.an[n]=S.an[n]||{}; S.an[n][i]=true; save(); render(); }
+  else document.getElementById('anmsg'+i).innerHTML = '<div class="wrong">Not quite. Keep juggling the letters.</div>';
+};
+window.anReveal = (i)=>{ const n=S.idx.an; S.an[n]=S.an[n]||{}; S.an[n][i]=true; save(); render(); };
+
+function renderBB(){
+  const per=5, page=S.idx.bb, total=Math.ceil(DATA.breaks.length/per);
+  let h = pager('bb', page, total, 'Quick-Fire Scoring Puzzles');
+  h += '<div class="note">Red 1, Yellow 2, Green 3, Brown 4, Blue 5, Pink 6, Black 7. Fouls give away at least 4.</div>';
+  for(let i=page*per;i<Math.min((page+1)*per,DATA.breaks.length);i++){
+    const item=DATA.breaks[i];
+    h += `<div class="q"><div class="qq">${i+1}. ${item.q}</div>`;
+    if(S.bb[i]) h += `<div class="ans">${item.a}</div><div class="right">Correct.</div>`;
+    else h += `<div class="row"><input type="text" id="bb${i}" placeholder="Answer" autocomplete="off"><button class="act" onclick="bbCheck(${i})">Check</button><button class="ghost" onclick="bbReveal(${i})">Reveal</button></div><div id="bbmsg${i}"></div>`;
+    h += '</div>';
+  }
+  return h;
+}
+window.bbCheck = (i)=>{
+  const item=DATA.breaks[i];
+  const g = (document.getElementById('bb'+i).value||'').trim().toUpperCase();
+  const a = item.a.trim().toUpperCase();
+  if(g===a || (parseInt(g)===parseInt(a) && !isNaN(parseInt(a)))){ S.bb[i]=true; save(); render(); }
+  else document.getElementById('bbmsg'+i).innerHTML = '<div class="wrong">Check your snooker maths and try again.</div>';
+};
+window.bbReveal = (i)=>{ S.bb[i]=true; save(); render(); };
+
+function render(){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active', b.dataset.id===S.tab));
+  document.getElementById('scorebar').innerHTML = score();
+  const v = document.getElementById('view');
+  sel = null;
+  if(S.tab==='ws') v.innerHTML = renderWS();
+  else if(S.tab==='tq') v.innerHTML = renderTQ();
+  else if(S.tab==='an') v.innerHTML = renderAN();
+  else v.innerHTML = renderBB();
+  if(S.tab==='ws'){ document.querySelectorAll('#grid td').forEach(td=>td.onclick=()=>wsClick(td)); }
+}
+render();
+</script>
+</body>
+</html>

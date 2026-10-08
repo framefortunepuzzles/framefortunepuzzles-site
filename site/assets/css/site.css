@@ -1,0 +1,188 @@
+/* Frame & Fortune Puzzles: site styles
+   Felt green and gold, taken from the logo. Fonts are self-hosted (no third-party requests). */
+
+@font-face { font-family: "Cormorant Garamond"; font-weight: 600; font-display: swap; src: url("/assets/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 700; font-display: swap; src: url("/assets/fonts/cormorant-garamond-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 400; font-display: swap; src: url("/assets/fonts/source-sans-3-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 400; font-style: italic; font-display: swap; src: url("/assets/fonts/source-sans-3-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 600; font-display: swap; src: url("/assets/fonts/source-sans-3-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 700; font-display: swap; src: url("/assets/fonts/source-sans-3-latin-700-normal.woff2") format("woff2"); }
+
+:root {
+  --felt: #0f3a22;
+  --felt-deep: #0a2817;
+  --gold: #c9a44c;
+  --gold-soft: #e6cc85;
+  --paper: #f4f7f2;
+  --white: #ffffff;
+  --ink: #13241a;
+  --muted: #4d5f53;
+  --line: #d3dcd3;
+  /* the seven colours */
+  --red: #c8102e; --yellow: #f2c200; --green: #1e8a3a; --brown: #7a4a22; --blue: #1f5fd1; --pink: #f07fae; --black: #111111;
+
+  --display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --body: "Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --wrap: 1080px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--felt); text-underline-offset: 3px; }
+a:hover { color: #1b5c37; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--gold); color: var(--ink); padding: .5rem 1rem; z-index: 10; }
+.skip:focus { left: 1rem; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.1; margin: 0 0 .5em; color: var(--felt-deep); }
+h1 { font-size: clamp(2.4rem, 5.2vw, 3.6rem); letter-spacing: .005em; }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.5rem); }
+h3 { font-size: 1.6rem; }
+p { margin: 0 0 1em; max-width: 66ch; }
+
+/* ---------- header ---------- */
+.site-header { background: var(--felt-deep); border-bottom: 2px solid var(--gold); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .6rem; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: .75rem; color: var(--gold-soft); text-decoration: none; }
+.brand img { width: 48px; height: 48px; border-radius: 50%; }
+.brand span { font-family: var(--display); font-weight: 700; font-size: 1.45rem; line-height: 1; }
+.brand:hover { color: var(--white); }
+.site-nav { display: flex; gap: .25rem 1.4rem; flex-wrap: wrap; }
+.site-nav a { color: #dbe7dd; text-decoration: none; font-weight: 600; font-size: 1rem; padding: .35rem 0; border-bottom: 2px solid transparent; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--gold-soft); border-bottom-color: var(--gold); }
+
+/* ---------- the felt panel (hero) ---------- */
+.felt {
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(255,255,255,.07), transparent 65%),
+    var(--felt);
+  color: #e9f1ea;
+}
+.felt h1, .felt h2, .felt h3 { color: var(--gold-soft); }
+.felt p { color: #dbe7dd; }
+.felt a:not(.btn) { color: var(--gold-soft); }
+
+/* gold double rule, echoing the logo's ring and the books' framed pages */
+.frame { border: 2px solid var(--gold); box-shadow: inset 0 0 0 5px var(--felt), inset 0 0 0 6px var(--gold); }
+
+.hero { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.hero-grid { display: grid; grid-template-columns: minmax(200px, 340px) 1fr; gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
+.hero-logo img { width: 100%; border-radius: 50%; box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+.hero .lede { font-size: 1.25rem; max-width: 34em; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
+
+/* ---------- the ball rail: seven colours, used as the brand divider ---------- */
+.rail { display: flex; gap: .45rem; align-items: center; margin: 0 0 1.2rem; padding: 0; list-style: none; }
+.rail li { width: 14px; height: 14px; border-radius: 50%; box-shadow: inset -2px -3px 4px rgba(0,0,0,.35), inset 2px 2px 3px rgba(255,255,255,.35); }
+.rail li:nth-child(1) { background: var(--red); }
+.rail li:nth-child(2) { background: var(--yellow); }
+.rail li:nth-child(3) { background: var(--green); }
+.rail li:nth-child(4) { background: var(--brown); }
+.rail li:nth-child(5) { background: var(--blue); }
+.rail li:nth-child(6) { background: var(--pink); }
+.rail li:nth-child(7) { background: var(--black); }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  min-height: 48px; padding: .7rem 1.35rem;
+  font: 700 1.05rem/1.2 var(--body); text-decoration: none; text-align: center;
+  border-radius: 999px; border: 2px solid transparent; cursor: pointer;
+}
+.btn-gold { background: var(--gold); color: var(--felt-deep); border-color: var(--gold); }
+.btn-gold:hover { background: var(--gold-soft); color: var(--felt-deep); }
+.btn-line { background: transparent; color: var(--gold-soft); border-color: var(--gold); }
+.btn-line:hover { background: rgba(201,164,76,.15); color: var(--white); }
+.btn-felt { background: var(--felt); color: var(--white); border-color: var(--felt); }
+.btn-felt:hover { background: #1b5c37; color: var(--white); }
+.btn-plain { background: var(--white); color: var(--felt); border-color: var(--felt); }
+.btn-plain:hover { background: #e8f0e9; color: var(--felt-deep); }
+
+/* ---------- sections ---------- */
+.section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.section-intro { margin-bottom: 2rem; }
+
+/* the shelf: one row per series, newest volume first */
+.shelf { display: grid; gap: 1.25rem; }
+.shelf-row {
+  display: grid; grid-template-columns: 1fr auto; gap: 1rem 2rem; align-items: center;
+  background: var(--white); border: 1px solid var(--line); border-left: 6px solid var(--felt);
+  padding: 1.5rem 1.75rem; border-radius: 6px;
+}
+.shelf-row h3 { margin-bottom: .2rem; }
+.shelf-row .vol { color: var(--muted); font-weight: 600; margin-bottom: .6rem; }
+.shelf-row p { margin-bottom: 0; }
+.shelf-row .actions { display: flex; flex-direction: column; gap: .6rem; }
+.shelf-note { color: var(--muted); font-style: italic; margin-top: 1.25rem; }
+
+/* three ways to play */
+.formats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.format { border-top: 3px solid var(--gold); padding-top: 1.1rem; }
+.format h3 { font-size: 1.55rem; }
+.format p { font-size: 1.05rem; }
+
+/* ---------- book page ---------- */
+.book-hero { padding-block: clamp(2rem, 5vw, 3.5rem); }
+.book-hero .series { color: var(--gold-soft); font-weight: 600; margin-bottom: .3rem; }
+.book-hero .byline { color: #dbe7dd; font-style: italic; }
+.contents { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(201,164,76,.45); margin-top: 1.8rem; border: 1px solid rgba(201,164,76,.45); }
+.contents div { background: var(--felt); padding: 1rem 1.1rem; }
+.contents strong { display: block; font-family: var(--display); font-size: 2.3rem; line-height: 1; color: var(--gold-soft); }
+.contents span { font-size: .98rem; color: #dbe7dd; }
+
+.editions { display: grid; gap: 1.5rem; }
+.edition {
+  display: grid; grid-template-columns: 1fr minmax(240px, 300px); gap: 1rem 2.5rem; align-items: start;
+  background: var(--white); border: 1px solid var(--line); border-radius: 6px; padding: 1.75rem;
+}
+.edition h3 { margin-bottom: .35rem; }
+.edition .for { color: var(--muted); font-weight: 600; margin-bottom: .8rem; }
+.edition ul { margin: 0 0 .5rem; padding-left: 1.2rem; }
+.edition li { margin-bottom: .35rem; max-width: 60ch; }
+.buy { display: flex; flex-direction: column; gap: .6rem; }
+.buy .small { font-size: .92rem; color: var(--muted); margin: .2rem 0 0; }
+
+.sample-band { margin-top: 2.5rem; padding: clamp(1.75rem, 4vw, 2.5rem); border-radius: 6px; }
+.sample-band .inner { display: flex; flex-wrap: wrap; gap: 1.25rem 2rem; align-items: center; justify-content: space-between; }
+.sample-band h2 { margin-bottom: .3rem; }
+.sample-band p { margin: 0; }
+
+.prose { max-width: 70ch; }
+.prose h2 { margin-top: 1.6em; }
+
+/* ---------- footer ---------- */
+.site-footer { background: var(--felt-deep); color: #c9d8cc; padding-block: 2.5rem; font-size: 1rem; border-top: 2px solid var(--gold); }
+.site-footer a { color: var(--gold-soft); }
+.footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem 3rem; }
+.footer-grid p { margin: 0 0 .5rem; }
+.disclosure { max-width: none; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(201,164,76,.35); font-size: .95rem; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 820px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-logo { max-width: 240px; margin-inline: auto; }
+  .hero .lede { margin-inline: auto; }
+  .hero-actions { justify-content: center; }
+  .hero .rail { justify-content: center; }
+  .formats { grid-template-columns: 1fr; gap: 1.5rem; }
+  .shelf-row, .edition { grid-template-columns: 1fr; }
+  .contents { grid-template-columns: repeat(2, 1fr); }
+  .site-header .wrap { justify-content: center; }
+}
+@media (max-width: 420px) {
+  body { font-size: 1.06rem; }
+  .brand span { font-size: 1.25rem; }
+  .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }

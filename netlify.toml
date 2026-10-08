@@ -1,0 +1,30 @@
+# Netlify settings. Plain static site: no build step, publish the site folder.
+[build]
+  publish = "site"
+  command = ""
+
+# Old or alternative addresses point to the right pages
+[[redirects]]
+  from = "/snooker"
+  to = "/snooker/volume-1/"
+  status = 301
+[[redirects]]
+  from = "/play"
+  to = "/play/snooker-volume-1/"
+  status = 302
+[[redirects]]
+  from = "/game"
+  to = "/play/snooker-volume-1/"
+  status = 302
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

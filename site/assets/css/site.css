@@ -130,33 +130,36 @@ p { margin: 0 0 1em; max-width: 66ch; }
 .btn-plain { background: var(--white); color: var(--felt); border-color: var(--felt); }
 .btn-plain:hover { background: #e8f0e9; color: var(--felt-deep); }
 
-/* ---------- the 3D book: real cover image on the front, real spine strip on the side ---------- */
-.book3d { --w: 220px; --t: calc(var(--w) * .055); display: block; width: var(--w); perspective: 1400px; position: relative; }
-.book3d-hero { --w: min(360px, 62vw); }
+/* ---------- the book mockup: real cover face-on, real spine strip and a page edge drawn
+   as flat 2D shapes receding up and to the left. No perspective or 3D transforms, so every
+   browser (including iPhone Safari) draws the whole book at every size. ---------- */
+.book3d { --w: 220px; --t: calc(var(--w) * .06); display: block; position: relative; isolation: isolate; width: calc(var(--w) + var(--t)); padding: var(--t) 0 0 var(--t); }
+.book3d-hero { --w: min(340px, 60vw); }
 .book3d::after { /* shadow on the table */
-  content: ""; position: absolute; left: 4%; right: -6%; bottom: -5%; height: 9%;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,.55), transparent 70%); filter: blur(6px); z-index: -1;
+  content: ""; position: absolute; left: 6%; right: -4%; bottom: -4%; height: 8%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.5), transparent 70%); filter: blur(6px); z-index: -1;
 }
-.book3d-inner {
-  display: block; position: relative; transform-style: preserve-3d;
-  transform: rotateY(24deg) rotateX(3deg);
-  transition: transform .5s cubic-bezier(.2,.7,.2,1);
-}
-.book3d-cover { display: block; position: relative; transform: translateZ(calc(var(--t) / 2)); border-radius: 0 3px 3px 0; overflow: hidden; box-shadow: 0 24px 48px rgba(0,0,0,.45); }
+.book3d-inner { display: block; position: relative; width: var(--w); transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+.book3d-cover { display: block; position: relative; z-index: 1; border-radius: 0 3px 3px 0; overflow: hidden; box-shadow: 6px 14px 30px rgba(0,0,0,.45); }
 .book3d-cover img { width: 100%; }
-.book3d-cover::after { /* soft light across the laminate; the cover itself is untouched */
+.book3d-cover::after { /* soft light across the laminate and a hinge line; the cover itself is untouched */
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(0,0,0,.28) 0, rgba(255,255,255,.18) 1.2%, rgba(0,0,0,.08) 3%, transparent 6%),
-    linear-gradient(115deg, rgba(255,255,255,.14) 0%, transparent 38%, transparent 70%, rgba(0,0,0,.12) 100%);
+    linear-gradient(90deg, rgba(0,0,0,.30) 0, rgba(255,255,255,.16) 1.4%, rgba(0,0,0,.06) 3.2%, transparent 6%),
+    linear-gradient(120deg, rgba(255,255,255,.12) 0%, transparent 40%, transparent 72%, rgba(0,0,0,.10) 100%);
 }
 .book3d-spine {
-  position: absolute; top: 0; left: 0; width: var(--t); height: 100%;
+  position: absolute; top: 0; left: calc(var(--t) * -1); width: var(--t); height: 100%;
   background-color: #111; background-size: 100% 100%;
-  transform-origin: left center; transform: translateZ(calc(var(--t) / 2)) rotateY(90deg);
-  filter: brightness(.75);
+  transform-origin: right top; transform: skewY(45deg); filter: brightness(.7);
 }
-a:hover > .book3d .book3d-inner, a:focus-visible > .book3d .book3d-inner { transform: rotateY(14deg) rotateX(2deg) translateY(-4px); }
+.book3d-top { /* the page block seen along the top edge */
+  position: absolute; left: 0; top: calc(var(--t) * -1); width: 100%; height: var(--t);
+  transform-origin: left bottom; transform: skewX(45deg);
+  background: repeating-linear-gradient(0deg, #efe9da 0 1px, #d9d1bd 1px 2px), #e9e2d0;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.18);
+}
+a:hover > .book3d .book3d-inner, a:focus-visible > .book3d .book3d-inner { transform: translateY(-4px); }
 
 /* ---------- homepage hero ---------- */
 .hero { padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(3rem, 7vw, 5.5rem); overflow: hidden; }
@@ -324,7 +327,7 @@ a:hover > .book3d .book3d-inner, a:focus-visible > .book3d .book3d-inner { trans
   .hero .lede, .book-hero p { margin-inline: auto; }
   .hero-actions, .jump, .rail { justify-content: center; }
   .contents { grid-template-columns: repeat(2, 1fr); text-align: left; }
-  .book3d-hero { --w: min(300px, 50vw); }
+  .book3d-hero { --w: min(280px, 50vw); }
   .book-hero .book3d-hero { margin-inline: auto; }
   .shelf-card { grid-template-columns: 1fr; text-align: center; }
   .shelf-body p { margin-inline: auto; }
@@ -352,7 +355,6 @@ a:hover > .book3d .book3d-inner, a:focus-visible > .book3d .book3d-inner { trans
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
-  .book3d-inner, a:hover > .book3d .book3d-inner { transform: none; }
-  .book3d-spine { display: none; }
+  a:hover > .book3d .book3d-inner { transform: none; }
   .btn:hover, .page-thumb:hover img { transform: none; }
 }

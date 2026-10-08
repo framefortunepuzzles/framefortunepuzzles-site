@@ -13,9 +13,11 @@ Writes to site/assets/img/books/BOOK_ID/:
   spine (.webp and .jpg)          the spine strip, for the 3D mockup
   page-N-600/1200 (.webp and .jpg) inside pages from the write-on PDF
   og (.jpg)                        1200 x 630 share image
+  sizes.json                       exact image sizes, read by tools/build.js
 Cover text is never redrawn: every image is a straight crop or render of your own files.
 """
 import io
+import json
 import os
 import sys
 
@@ -63,12 +65,15 @@ def main():
 
     wrap = pymupdf.open(wrap_pdf)[0]
     right = wrap.rect.width - BLEED
-    front = pymupdf.Rect(right - TRIM_W, BLEED, right, BLEED + TRIM_H)
+    # Bleed comes off the bottom and the outside edge. The top bleed is kept because cover
+    # titles often run into it (Snooker Volume 1's lettering does), and trimming it clips them.
+    front = pymupdf.Rect(right - TRIM_W, 0, right, BLEED + TRIM_H)
     spine = pymupdf.Rect(BLEED + TRIM_W, BLEED, right - TRIM_W, BLEED + TRIM_H)
 
     cover = render(wrap, front, 300)
+    sizes = {}
     for wdt in (400, 760):
-        save(cover, out, f"cover-{wdt}", wdt, quality=72)
+        sizes[f"cover-{wdt}"] = save(cover, out, f"cover-{wdt}", wdt, quality=72).size
     sp = render(wrap, spine, 150)
     save(sp, out, "spine", quality=75)
     og_image(cover, out)
@@ -79,6 +84,8 @@ def main():
         for wdt in (600, 1200):
             save(img, out, f"page-{n}-{wdt}", wdt, quality=78)
 
+    with open(os.path.join(out, "sizes.json"), "w") as f:
+        json.dump(sizes, f, indent=2)
     print("Wrote", len(os.listdir(out)), "files to", out)
     print("Spine width in points:", round(spine.width, 2))
 

@@ -33,6 +33,12 @@ const img = (b) => `/assets/img/books/${b.id}`;
 const hasFile = (p) => fs.existsSync(path.join(SITE, p));
 const hasCover = (b) => hasFile(`${img(b)}/cover-400.webp`);
 const fullTitle = (b) => `${b.title} Volume ${b.volume}`;
+// exact cover sizes written by tools/make-images.py (falls back to 8.5 x 11 proportions)
+function coverSize(b) {
+  const p = path.join(SITE, img(b), "sizes.json");
+  const s = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8"))["cover-400"] : null;
+  return s || [400, 518];
+}
 const link = (url) => url || FALLBACK;
 
 function book(id) {
@@ -52,11 +58,13 @@ const blocks = {
   mockup(b, opt) {
     const hero = opt === "hero";
     const spine = `${img(b)}/spine`;
-    const sizes = hero ? "(max-width: 820px) 62vw, 360px" : "(max-width: 820px) 46vw, 220px";
+    const sizes = hero ? "(max-width: 820px) 50vw, 340px" : "(max-width: 820px) 46vw, 220px";
+    const [cw, ch] = coverSize(b);
     return `<span class="book3d${hero ? " book3d-hero" : ""}">` +
       `<span class="book3d-inner">` +
+      `<span class="book3d-top"></span>` +
       `<span class="book3d-spine" style="background-image:url(${spine}.jpg);background-image:image-set(url(${spine}.webp) type('image/webp'),url(${spine}.jpg) type('image/jpeg'))"></span>` +
-      `<span class="book3d-cover">${picture(b, `${img(b)}/cover`, [400, 760], sizes, `Front cover of ${fullTitle(b)} by David Walker`, 400, 518, hero)}</span>` +
+      `<span class="book3d-cover">${picture(b, `${img(b)}/cover`, [400, 760], sizes, `Front cover of ${fullTitle(b)} by David Walker`, cw, ch, hero)}</span>` +
       `</span></span>`;
   },
 

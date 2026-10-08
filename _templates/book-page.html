@@ -2,7 +2,9 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<!-- TEMPLATE: Claude fills every [PLACEHOLDER] for each new book. Also rewrite the headline, intro, the four contents numbers and the description meta. -->
+<!-- TEMPLATE: copy to site/[sport]/volume-[n]/index.html. Replace [book-id] everywhere with the book's id from books.json
+     (for example darts-volume-1), fill every other [PLACEHOLDER], rewrite the headline, intro, the four contents numbers
+     and the description meta, then run  node tools/build.js  to fill the cover, pages and buy buttons. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>[SPORT] Puzzles &amp; Trivia Volume [N] | Frame &amp; Fortune Puzzles</title>
 <meta name="description" content="[SPORT] Puzzles &amp; Trivia Volume [N]: 30 word searches, 150 trivia questions, 80 anagrams and 40 Break Builder scoring puzzles. Paperback, write-on PDF and playable game.">
@@ -11,15 +13,13 @@
 <meta property="og:title" content="[SPORT] Puzzles &amp; Trivia Volume [N]">
 <meta property="og:description" content="30 word searches, 150 trivia questions, 80 anagrams and 40 Break Builders. Try the free sample game.">
 <meta property="og:url" content="https://framefortunepuzzles.com/[sport]/volume-[n]/">
-<meta property="og:image" content="https://framefortunepuzzles.com/assets/img/og-image.jpg">
+<meta property="og:image" content="https://framefortunepuzzles.com/assets/img/books/[book-id]/og.jpg">
 <meta name="theme-color" content="#0a2817">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Book","name":"[SPORT] Puzzles & Trivia: Volume [N]","author":{"@type":"Person","name":"David Walker"},"bookFormat":"https://schema.org/Paperback","numberOfPages":[PAGES],"isPartOf":{"@type":"BookSeries","name":"[SPORT] Puzzles & Trivia"},"url":"https://framefortunepuzzles.com/[sport]/volume-[n]/","sameAs":"https://www.amazon.co.uk/dp/[ASIN]"}
-</script>
+<!-- build:jsonld [book-id] --><!-- /build -->
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -29,7 +29,7 @@
     <a class="brand" href="/"><img src="/assets/img/logo-96.webp" alt="" width="48" height="48"><span>Frame &amp; Fortune Puzzles</span></a>
     <nav class="site-nav" aria-label="Main">
       <a href="/#books" aria-current="page">Books</a>
-      <a href="/play/[sport]-volume-[n]/">Free game</a>
+      <a href="/play/[book-id]/">Free game</a>
       <a href="/#contact">Contact</a>
     </nav>
   </div>
@@ -37,30 +37,52 @@
 
 <main id="main">
   <section class="felt book-hero">
-    <div class="wrap">
-      <ul class="rail" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
-      <p class="series">[SPORT] Puzzles &amp; Trivia, Volume [N]</p>
-      <h1>A frame of puzzles for every snooker fan</h1>
-      <p class="byline">by David "The Toothless Tornado" Walker</p>
-      <p>From the Crucible's great finals to the colours in the right order, this is the snooker book to keep by the armchair. Illustrated throughout with pen and ink scenes of club life and tournament drama.</p>
-      <div class="contents">
-        <div><strong>30</strong><span>themed word searches</span></div>
-        <div><strong>150</strong><span>trivia questions in 15 quizzes</span></div>
-        <div><strong>80</strong><span>anagrams of champions and terms</span></div>
-        <div><strong>40</strong><span>Break Builder scoring puzzles</span></div>
+    <div class="wrap book-hero-grid">
+      <div class="hero-book">
+        <!-- build:mockup [book-id] hero --><!-- /build -->
+      </div>
+      <div>
+        <ul class="rail" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+        <p class="eyebrow series">[SPORT] Puzzles &amp; Trivia, Volume [N]</p>
+        <h1>[HEADLINE]</h1>
+        <p class="byline">by David "The Toothless Tornado" Walker</p>
+        <p>[INTRO PARAGRAPH]</p>
+        <div class="contents">
+          <div><strong>30</strong><span>themed word searches</span></div>
+          <div><strong>150</strong><span>trivia questions in 15 quizzes</span></div>
+          <div><strong>80</strong><span>anagrams of champions and terms</span></div>
+          <div><strong>40</strong><span>Break Builder scoring puzzles</span></div>
+        </div>
+        <div class="jump">
+          <a class="btn btn-gold" href="#editions">Choose your edition</a>
+          <a class="btn btn-line" href="/play/[book-id]/">Play the free sample</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" aria-labelledby="inside-title">
     <div class="wrap">
       <div class="section-intro">
-        <h2>Choose your edition</h2>
+        <p class="eyebrow">Look inside</p>
+        <h2 id="inside-title">Real pages from the book</h2>
+        <p>One puzzle to a page, with room to write. Every puzzle has a full solution at the back. Tap a page to see it larger.</p>
+      </div>
+      <!-- build:preview [book-id] --><!-- /build -->
+    </div>
+  </section>
+
+  <section class="section flush" id="editions" aria-labelledby="editions-title">
+    <div class="wrap">
+      <div class="section-intro">
+        <p class="eyebrow">Choose your edition</p>
+        <h2 id="editions-title">Paperback, write-on PDF or game</h2>
         <p>Same puzzles in each. All three come with full solutions.</p>
       </div>
 
       <div class="editions">
         <article class="edition">
+          <div class="edition-visual"><!-- build:mockup [book-id] --><!-- /build --></div>
           <div>
             <h3>Paperback</h3>
             <p class="for">For the shelf, the armchair, or a gift</p>
@@ -70,11 +92,12 @@
             </ul>
           </div>
           <div class="buy">
-            <a class="btn btn-felt" data-amazon rel="sponsored noopener" href="https://www.amazon.co.uk/dp/[ASIN]">Buy on Amazon</a>
+            <!-- build:buy-paperback [book-id] --><!-- /build -->
           </div>
         </article>
 
         <article class="edition">
+          <div class="edition-visual"><!-- build:tablet [book-id] --><!-- /build --></div>
           <div>
             <h3>Write-on PDF</h3>
             <p class="for">For Kindle Scribe, iPad and reMarkable</p>
@@ -86,12 +109,12 @@
             </ul>
           </div>
           <div class="buy">
-            <a class="btn btn-felt" href="[PAYHIP-PDF-LINK]">Buy direct on Payhip</a>
-            <a class="btn btn-plain" href="https://www.etsy.com/shop/FrameFortunePuzzles">Buy on Etsy</a>
+            <!-- build:buy-pdf [book-id] --><!-- /build -->
           </div>
         </article>
 
         <article class="edition">
+          <div class="edition-visual"><!-- build:phone [book-id] --><!-- /build --></div>
           <div>
             <h3>Playable game</h3>
             <p class="for">For phones, tablets and computers</p>
@@ -103,8 +126,7 @@
             </ul>
           </div>
           <div class="buy">
-            <a class="btn btn-felt" href="[PAYHIP-GAME-LINK]">Buy direct on Payhip</a>
-            <a class="btn btn-plain" href="https://www.etsy.com/shop/FrameFortunePuzzles">Buy on Etsy</a>
+            <!-- build:buy-game [book-id] --><!-- /build -->
           </div>
         </article>
       </div>
@@ -115,7 +137,7 @@
             <h2>Try before you buy</h2>
             <p>Play a free selection of puzzles from the book, right here in your browser.</p>
           </div>
-          <a class="btn btn-gold" href="/play/[sport]-volume-[n]/">Play the free sample</a>
+          <a class="btn btn-gold" href="/play/[book-id]/">Play the free sample</a>
         </div>
       </div>
     </div>
@@ -125,9 +147,12 @@
 <footer class="site-footer" id="contact">
   <div class="wrap">
     <div class="footer-grid">
-      <div>
-        <p><strong>Frame &amp; Fortune Puzzles</strong></p>
-        <p>Questions, ideas or a puzzle you think we got wrong? Email <a href="mailto:hello@framefortunepuzzles.com">hello@framefortunepuzzles.com</a></p>
+      <div class="footer-brand">
+        <img src="/assets/img/logo-96.webp" alt="" width="52" height="52" loading="lazy">
+        <div>
+          <p><strong>Frame &amp; Fortune Puzzles</strong></p>
+          <p>Questions, ideas or a puzzle you think we got wrong? Email <a href="mailto:hello@framefortunepuzzles.com">hello@framefortunepuzzles.com</a></p>
+        </div>
       </div>
       <div>
         <p><a href="https://www.etsy.com/shop/FrameFortunePuzzles">Our Etsy shop</a></p>

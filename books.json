@@ -1,0 +1,30 @@
+{
+  "fallbackLink": "https://www.etsy.com/shop/FrameFortunePuzzles",
+  "books": [
+    {
+      "id": "snooker-volume-1",
+      "title": "Snooker Puzzles & Trivia",
+      "subject": "Snooker",
+      "category": "sports",
+      "volume": 1,
+      "status": "live",
+      "amazonAsin": "B0HLWFFWST",
+      "payhipPdf": "https://payhip.com/b/TpX7Q",
+      "payhipGame": "https://payhip.com/b/hKDxe",
+      "etsyPdf": "https://www.etsy.com/listing/4573282179",
+      "etsyGame": "https://www.etsy.com/listing/4573370027",
+      "page": "/snooker/volume-1/",
+      "play": "/play/snooker-volume-1/",
+      "pages": 93,
+      "blurb": "30 word searches, 150 trivia questions, 80 anagrams and 40 Break Builder scoring puzzles, illustrated with pen and ink scenes from the club room to the Crucible.",
+      "previewPages": [
+        { "n": 5, "label": "Word search: Legends of the Baize" },
+        { "n": 38, "label": "Trivia quiz: The World Championship" },
+        { "n": 56, "label": "Anagrams: World Champions" },
+        { "n": 67, "label": "Break Builders: quick-fire scoring puzzles" },
+        { "n": 15, "label": "Baize Break: The Black Ball Final" },
+        { "n": 3, "label": "Welcome: how to use this book" }
+      ]
+    }
+  ]
+}
